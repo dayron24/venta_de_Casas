@@ -9,7 +9,7 @@ const IndexPage = () => {
 
     const loadCasas = () => {
 
-        fetch('http://localhost:5005/api/coasters')
+        fetch('https://venta-casas.onrender.com/api/coasters')
             .then(res => res.json())
             .then(allCasas => setCasas(allCasas))
     }
