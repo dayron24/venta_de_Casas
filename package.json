@@ -4,7 +4,7 @@
   "description": "Materiales desarrollados en Garaje Live Coding | De 0 a MERN @ Ironhack Madrid - Enero 2022",
   "main": "index.js",
   "scripts": {
-    "start": "cd ./client && npm start && cd ../server && node server.js"
+    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
