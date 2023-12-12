@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Casa</title>
+  <link rel="stylesheet" href="estilo_subirCasas.css">
+</head>
+<body>
+
+<h2>Publicar una nueva casa</h2>
+
+<form id="formularioCasa" > 
+  <label for="nombre">Nombre:</label>
+  <input type="text" id="nombre" name="nombre" required><br>
+
+  <label for="descripcion">Descripción:</label>
+  <input id="descripcion" name="descripcion" rows="4" required><br>
+
+  <label for="ubicacion">Ubicación:</label>
+  <input type="text" id="ubicacion" name="ubicacion" required><br>
+
+  <label for="precio">Precio:</label>
+  <input type="number" id="precio" name="precio" step="1" required><br>
+
+  <label for="imagen1">Imagen 1:</label>
+  <input type="file" id="imagen1" name="imagen1" accept="image/*"><br>
+
+  <label for="imagen2">Imagen 2:</label>
+  <input type="file" id="imagen2" name="imagen2" accept="image/*"><br>
+
+  <label for="imagen3">Imagen 3:</label>
+  <input type="file" id="imagen3" name="imagen3" accept="image/*"><br>
+
+  <label for="imagen4">Imagen 4:</label>
+  <input type="file" id="imagen4" name="imagen4" accept="image/*"><br>
+
+  <label for="imagen5">Imagen 5:</label>
+  <input type="file" id="imagen5" name="imagen5" accept="image/*"><br>
+
+  <label for="imagen6">Imagen 6:</label>
+  <input type="file" id="imagen6" name="imagen6" accept="image/*"><br>
+
+  <input type="submit" value="Enviar">
+
+</form>
+
+
+<script src="subirCasas.js"></script>
+</body>
+</html>

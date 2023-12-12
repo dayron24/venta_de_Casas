@@ -1,0 +1,100 @@
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.banner-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 1px;
+    text-align: center;
+    z-index: 1000;
+  }
+  
+.main {
+    margin-top: 70px; /* Ajusta este valor según la altura del banner */
+}
+
+h1 {
+    text-align: top;
+    color: #fff;
+    background-color: #250d0d;
+    padding: 20px ;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    font-size: 1.1em;
+}
+
+/* Estilos para cada casa */
+.casa-item {
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.casa-item a {
+    text-decoration: none;
+    color: #030303;
+}
+
+.casa-item:hover {
+    transform: scale(1.05);
+}
+
+.casa-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 10px;
+}
+
+.casa-item div {
+    padding: 20px;
+}
+
+.casa-item strong {
+    display: block;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #1f1f1f;
+}
+
+.casa-item p {
+    margin: 0;
+    color: #030303;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+    .container{
+        padding: 5%;
+    } 
+    main {
+       width: inherit; /* Ancho completo en pantallas muy pequeñas */
+    }
+
+}
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 480px) {
+    .container{
+        padding: 5%;
+    } 
+    main {
+       width: inherit; /* Ancho completo en pantallas muy pequeñas */
+    }
+   
+}
