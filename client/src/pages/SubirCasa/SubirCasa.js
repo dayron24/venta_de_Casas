@@ -84,7 +84,7 @@ const SubirCasaContent = () => {
     const subirCasa = async (casa) => {
         console.log(casa);
         try {
-            const response = fetch('http://localhost:5005/guardarDatos',{
+            const response = fetch('https://venta-casas.onrender.com/guardarDatos',{
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
