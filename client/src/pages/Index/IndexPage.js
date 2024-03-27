@@ -1,59 +1,83 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import './estilos.css'
+import './estilos.css';
 
 const IndexPage = () => {
+    const [casas, setCasas] = useState([]);
 
-    const [casas, setCasas] = useState([])
+    useEffect(() => {
+        loadCasas();
+    }, []);
 
-    const loadCasas = () => {
+    const loadCasas = async () => {
+        try {
+            const response = await fetch('http://localhost:5005/api/coasters');
+            if (!response.ok) {
+                throw new Error('Error al obtener las casas del servidor');
+            }
+            const allCasas = await response.json();
+            setCasas(allCasas);
+        } catch (error) {
+            console.error('Error cargando las casas:', error);
+        }
+    };
 
-        fetch('https://venta-casas.onrender.com/api/coasters')
-            .then(res => res.json())
-            .then(allCasas => setCasas(allCasas))
-    }
+    useEffect(() => {
+        const loadImagenes = async () => {
+            try {
+                const nuevasCasas = await Promise.all(casas.map(async (casa) => {
+                    const response = await fetch(`http://localhost:5005/get-image/${casa._id}`);
+                    if (!response.ok) {
+                        throw new Error(`Error al obtener la imagen de la casa ${casa._id}`);
+                    }
+                    const blob = await response.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    return { ...casa, imageUrl };
+                }));
+                setCasas(nuevasCasas);
+            } catch (error) {
+                console.error('Error cargando las imágenes:', error);
+            }
+        };
+    
+        if (casas.length > 0) {
+            loadImagenes();
+        }
+    }, [casas.length]); // Solo ejecuta el efecto cuando cambie la longitud de 'casas'
 
-    loadCasas()
 
     return (
-        
         <main>
-            <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
-         <div className="banner-container">
+            <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
+            <div className="banner-container">
+                <h1>Productos y servicios disponibles</h1>
+            </div>
 
-           <h1>Listado de casas</h1>
-  
-        </div >
-       
-        <div class="casa-item" > 
-        </div >
-        {casas.map(eachCasa => (
-            
-            <div class="casa-item" key={eachCasa._id}>
-               <div class="margen" >
-                <Link key={eachCasa._id} to={`/detalles/${eachCasa._id}`} className="no-underline">
-              
-                
-                <strong>{eachCasa.nombre}</strong>
-                <img src={`data:image/jpeg;base64, ${eachCasa.imagenes[0]}`} alt= {eachCasa.nombre}></img>
-                    <p>{eachCasa.descripcion}</p>
-                 
-                    <p>Ubicación: {eachCasa.ubicacion}</p>
-                     <p>Precio: {formatPrecio(eachCasa.precio)}</p>
-                  
-                    
+            {casas.map(eachCasa => (
+                <div className="casa-item" key={eachCasa._id || Math.random()}>
+                    <div className="margen">
+                        <Link key={eachCasa._id} to={`/detalles/${eachCasa._id}`} className="no-underline">
+                            <strong>{eachCasa.nombre}</strong>
+                            <div className="imagen-container">
+                                <img src={eachCasa.imageUrl} alt={eachCasa.nombre} />
+                            </div>
+                            <p>{eachCasa.descripcion}</p>
+                            <h3> Ubicación: {eachCasa.ubicacion}</h3>
 
-                     </Link>
-                     </div>
+                            <h3>Precio: {formatPrecio(eachCasa.precio)}</h3>
+                        </Link>
+                    </div>
                 </div>
-            
-        ))}
-        <Link to="/">Ir al inicio</Link>
-    </main>
-    )
-}
+            ))}
+            {/* <Link to="/">Ir al inicio</Link> */}
+        </main>
+    );
+};
+
 function formatPrecio(precio) {
-    return precio.toLocaleString('es-ES');
+    precio = precio.toLocaleString('es-ES');
+    return `${precio} colones`
 }
-export default IndexPage
+
+export default IndexPage;

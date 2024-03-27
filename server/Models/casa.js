@@ -5,7 +5,7 @@ const casaSchema = new mongoose.Schema({
   descripcion: String,
   ubicacion: String,
   precio: Number,
-  imagenes: [String], // Lista de imágenes
+  imagenesPath: [String], // Lista de imágenes
 });
 
 const Casa = mongoose.model('Casa', casaSchema);

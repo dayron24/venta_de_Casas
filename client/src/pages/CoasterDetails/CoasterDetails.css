@@ -1,11 +1,52 @@
-.coaster-details img {
-    display: inline-block;
-    width: 30%;
+
+.container{
+    margin-top: 0;
 }
 
-.coaster-details article {
+.casa-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.img-container{
+    display: flex;
+
+    justify-content: center;
+}
+
+.my-button {
     display: inline-block;
-    width: 40%;
-    margin-left: 20px;
-    vertical-align: top;
+    padding: 10px 20px;
+    background-color: #250d0d;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10%;
+  }
+  
+  .my-button:hover {
+    background-color: #250d0d;
+  }
+  .whatsapp-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #25D366; /* Color verde de WhatsApp */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .whatsapp-button:hover {
+    background-color: #128C7E; /* Cambio de color al pasar el mouse */
+  }
+  
+
+@media screen and (max-width: 768px) {
+  .imagen {
+    max-width: 100%; /* Ajusta la imagen al ancho máximo de su contenedor */
+  }
 }

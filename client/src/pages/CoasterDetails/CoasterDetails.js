@@ -1,42 +1,76 @@
-import { useState } from "react"
-import { useParams, Link } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 
-import './CoasterDetails.css'
+import './CoasterDetails.css';
 
 const CoasterDetails = () => {
+    const { _id } = useParams();
+    const [casa, setCasa] = useState({});
+    const [image, setImage] = useState(null);
 
-    const { coaster_id } = useParams()
-    const [coaster, setCoaster] = useState({})
-
-    const loadCosterDetails = () => {
-
-        fetch(`http://localhost:5005/api/details/${coaster_id}`)
-            .then(response => response.json())
-            .then(coaster => setCoaster(coaster))
+    const formatPrecio = (precio) => {
+        console.log(precio)
+        precio = precio.toLocaleString('es-ES');
+        return `${precio} colones`
     }
+    
 
-    loadCosterDetails()
+    useEffect(() => {
+        const loadCosterDetails = () => {
+            fetch(`http://localhost:5005/api/details/${_id}`)
+                .then(response => response.json())
+                .then(casa => setCasa(casa))
+                .catch(error => console.error('Error cargando los detalles de la casa:', error));
+        };
+
+        const loadImagenes = async () => {
+            try {
+                const response = await fetch(`http://localhost:5005/get-image/${_id}`);
+                if (!response.ok) {
+                    throw new Error(`Error al obtener la imagen de la casa ${_id}`);
+                }
+                const blob = await response.blob();
+                const imageUrl = URL.createObjectURL(blob);
+                setImage(imageUrl);
+            } catch (error) {
+                console.error('Error cargando la imagen:', error);
+            }
+        };
+
+        loadCosterDetails();
+        loadImagenes();
+    }, [_id]);
+
+    // Función para obtener la URL de WhatsApp con el mensaje predefinido
+    const getWhatsAppLink = () => {
+        const message = `¡Hola! Estoy interesado en la propiedad ${casa.nombre}. Más detalles en: ${window.location.href}`;
+        const phoneNumber = '+506-83874198'; // Aquí coloca tu número de WhatsApp
+        return `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+    };
 
     return (
-        <main className="coaster-details">
-            <h1>Detalles de {coaster.title}</h1>
-            <hr />
+        <main className="casa-details">
+            <div className="container">
+                <h1>Detalles de {casa.nombre}</h1>
 
-            <img src={coaster.imageUrl} />
-
-            <article>
-                <p>{coaster.description}</p>
-                <h3>Especificaciones</h3>
-                <ul>
-                    <li>Longitud: {coaster.length}</li>
-                    <li>Inversiones: {coaster.height}</li>
-                </ul>
-
-                <Link to="/galeria">Volver</Link>
-            </article>
-
+                <article className="content">
+                <div className="img-container">
+                    <img className="imagen" src={image} alt={casa.nombre} />
+                </div>
+                    <h3>Especificaciones</h3>
+                    <p>{casa.descripcion}</p>
+                    <ul>
+                        <li><strong>Ubicación:</strong> {casa.ubicacion}</li>
+                        <li><strong>Precio:</strong> {casa.precio}</li>
+                    </ul>
+                    <a href={getWhatsAppLink()} className="whatsapp-button" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+                    
+                </article>
+                <Link to="/" className="my-button">Volver</Link>
+            </div>
         </main>
-    )
-}
+    );
+};
 
-export default CoasterDetails
+
+export default CoasterDetails;

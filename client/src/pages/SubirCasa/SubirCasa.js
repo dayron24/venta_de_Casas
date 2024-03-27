@@ -21,60 +21,40 @@ const SubirCasa = () => {
 
 
 const SubirCasaContent = () => {
+  const [values, setValues] = useState({
+      nombre: '',
+      descripcion: '',
+      ubicacion: '',
+      precio: '',
+      imagen1: null, // Inicialmente establecido como null
+      imagen2: null,
+      imagen3: null,
+      imagen4: null,
+      imagen5: null,
+  });
 
-   const [values, setValues] = useState({
-        nombre: '',
-        descripcion: '',
-        ubicacion: '',
-        precio: '',
-        imagen1: '',
-        imagen2: '',
-        imagen3: '',
-        imagen4: '',
-        imagen5: '',
- 
-       });
+  const handleInputChange = (e) => {
+      const { name, files } = e.target;
 
-    
-       const handleInputChange = (e) => {
-        const { name, files } = e.target;
-      
-        // Si es un campo de entrada de archivo, realiza la conversión a base64
-        if (files) {
-          const file = files[0];
-          convertirArchivoABase64(file)
-            .then(base64String => {
-                setValues(prevData => ({
-                ...prevData,
-                [name]: base64String,
-              }));
-            })
-            .catch(error => {
-              console.error('Error al convertir la imagen:', error);
-            });
-        } else {
-          // Si no es un campo de entrada de archivo, actualiza el valor directamente
+      if (files && files.length > 0) {
+          // Si se selecciona un archivo, establece la imagen correspondiente como el archivo seleccionado
+          setValues(prevValues => ({
+              ...prevValues,
+              [name]: files[0] // Establece solo el primer archivo seleccionado, puedes modificar esto según tus necesidades
+          }));
+      }else{
           setValues(prevData => ({
             ...prevData,
             [name]: e.target.value,
           }));
         }
       };
-      
-      // Función para convertir un archivo a formato base64
-      const convertirArchivoABase64 = (file) => {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onload = () => resolve(reader.result.split(',')[1]);
-          reader.onerror = (error) => reject(error);
-          reader.readAsDataURL(file);
-        });
-      };
+
     // Función para convertir un archivo a formato base64
     const handleForm = (e) => {
         e.preventDefault();
         
-        subirCasa(JSON.stringify(values));
+        subirCasa(values);
         
         
     };
@@ -82,31 +62,39 @@ const SubirCasaContent = () => {
     const [serverMessage, setServerMessage] = useState('');
 
     const subirCasa = async (casa) => {
-        console.log(casa);
-        try {
-            const response = fetch('https://venta-casas.onrender.com/guardarDatos',{
+      console.log("CASA:",casa);
+      try {
+          const formData = new FormData();
+          formData.append('nombre', casa.nombre);
+          formData.append('descripcion', casa.descripcion);
+          formData.append('ubicacion', casa.ubicacion);
+          formData.append('precio', casa.precio);
+          formData.append('file', casa.imagen1);
+        
+          console.log('FILLEE:', formData.file);
+          
+          
+          const response = await fetch('http://localhost:5005/guardarDatos', {
               method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: casa,
-              
-            });
-            if (!response.ok) {
-                throw new Error('Error al enviar datos al servidor');
-              }
-        
-              const responseData = await response.json();
-              console.log(responseData);
-        
-              // Actualiza el estado con el mensaje del servidor
-              setServerMessage(responseData.message || 'Datos guardados exitosamente');
-            } catch (error) {
-              console.error('Error:', error);
-              // Actualiza el estado con el mensaje de error
-              setServerMessage('Error al enviar datos al servidor');
-            }
-          };
+              body: formData,
+              file: casa.imagen1,
+          });
+  
+          if (!response.ok) {
+              throw new Error('Error al enviar datos al servidor');
+          }
+  
+          const responseData = await response.json();
+          console.log(responseData);
+  
+          // Actualiza el estado con el mensaje del servidor
+          setServerMessage(responseData.message || 'Datos guardados exitosamente');
+      } catch (error) {
+          console.error('Error:', error);
+          // Actualiza el estado con el mensaje de error
+          setServerMessage('Error al enviar datos al servidor');
+      }
+  };
             
     return (
         <main>

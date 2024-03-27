@@ -31,6 +31,24 @@ h1 {
     font-size: 1.1em;
 }
 
+.imagen-container {
+    aspect-ratio: 16 / 9; /* Puedes ajustar el aspecto según tus necesidades */
+    overflow: hidden;
+}
+
+.imagen-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-imagen {
+    width: 100%;
+    height: 0;
+    padding-top: 56.25%; /* Esto mantiene el mismo aspecto que 16:9 */
+    background-color: #ccc; /* Puedes cambiar este color según tus preferencias */
+}
+
 /* Estilos para cada casa */
 .casa-item {
     width: 100%;
@@ -56,6 +74,7 @@ h1 {
     height: auto;
     border-radius: 5px 5px 0 0;
     margin-bottom: 10px;
+    aspect-ratio: 16/9;
 }
 
 .casa-item div {

@@ -14,7 +14,7 @@ function App() {
         <Route path="/" element={<IndexPage/>} />
         <Route path="/subirCasa" element={<SubirCasa />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/detalles/:casa_id" element={<CoasterDetails />} />
+        <Route path="/detalles/:_id" element={<CoasterDetails />} />
         
     
       </Routes>
