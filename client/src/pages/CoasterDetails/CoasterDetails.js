@@ -8,16 +8,16 @@ const CoasterDetails = () => {
     const [casa, setCasa] = useState({});
     const [image, setImage] = useState(null);
 
-    const formatPrecio = (precio) => {
-        console.log(precio)
-        precio = precio.toLocaleString('es-ES');
-        return `${precio} colones`
-    }
+    // const formatPrecio = (precio) => {
+    //     console.log(precio)
+    //     precioFormat = precio.toLocaleString('es-ES');
+    //     return precioFormat
+    // }
     
 
     useEffect(() => {
         const loadCosterDetails = () => {
-            fetch(`http://localhost:5005/api/details/${_id}`)
+            fetch(`https://venta-casas.onrender.com:5005/api/details/${_id}`)
                 .then(response => response.json())
                 .then(casa => setCasa(casa))
                 .catch(error => console.error('Error cargando los detalles de la casa:', error));
@@ -25,7 +25,7 @@ const CoasterDetails = () => {
 
         const loadImagenes = async () => {
             try {
-                const response = await fetch(`http://localhost:5005/get-image/${_id}`);
+                const response = await fetch(`https://venta-casas.onrender.com:5005/get-image/${_id}`);
                 if (!response.ok) {
                     throw new Error(`Error al obtener la imagen de la casa ${_id}`);
                 }
@@ -44,7 +44,7 @@ const CoasterDetails = () => {
     // Función para obtener la URL de WhatsApp con el mensaje predefinido
     const getWhatsAppLink = () => {
         const message = `¡Hola! Estoy interesado en la propiedad ${casa.nombre}. Más detalles en: ${window.location.href}`;
-        const phoneNumber = '+506-83874198'; // Aquí coloca tu número de WhatsApp
+        const phoneNumber = '+50663737602'; // Aquí coloca tu número de WhatsApp
         return `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
     };
 
@@ -61,7 +61,7 @@ const CoasterDetails = () => {
                     <p>{casa.descripcion}</p>
                     <ul>
                         <li><strong>Ubicación:</strong> {casa.ubicacion}</li>
-                        <li><strong>Precio:</strong> {casa.precio}</li>
+                        <li><strong>Precio:</strong> {casa.precio} colones</li>
                     </ul>
                     <a href={getWhatsAppLink()} className="whatsapp-button" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
                     
@@ -72,5 +72,9 @@ const CoasterDetails = () => {
     );
 };
 
+function formatPrecioD(precio) {
+    precio = precio.toLocaleString('es-ES');
+    return `${precio} colones`
+}
 
 export default CoasterDetails;

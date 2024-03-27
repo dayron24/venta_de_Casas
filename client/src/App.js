@@ -3,8 +3,10 @@ import SubirCasa from './pages/SubirCasa/SubirCasa'
 import IndexPage from './pages/Index/IndexPage'
 import CoasterDetails from './pages/CoasterDetails/CoasterDetails'
 import LoginPage from './pages/LoginPage/Login'
+//import dotenv from 'dotenv';
 import { Routes, Route } from 'react-router-dom'
 
+//dotenv.config();
 
 function App() {
   return (

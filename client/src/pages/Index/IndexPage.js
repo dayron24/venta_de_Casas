@@ -12,7 +12,9 @@ const IndexPage = () => {
 
     const loadCasas = async () => {
         try {
-            const response = await fetch('http://localhost:5005/api/coasters');
+            const URL = 'http://https://venta-casas.onrender.com:5005';
+            
+            const response = await fetch(`${URL}/api/coasters`);
             if (!response.ok) {
                 throw new Error('Error al obtener las casas del servidor');
             }
@@ -27,7 +29,7 @@ const IndexPage = () => {
         const loadImagenes = async () => {
             try {
                 const nuevasCasas = await Promise.all(casas.map(async (casa) => {
-                    const response = await fetch(`http://localhost:5005/get-image/${casa._id}`);
+                    const response = await fetch(`${URL}/get-image/${casa._id}`);
                     if (!response.ok) {
                         throw new Error(`Error al obtener la imagen de la casa ${casa._id}`);
                     }
