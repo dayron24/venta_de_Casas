@@ -12,7 +12,7 @@ const IndexPage = () => {
 
     const loadCasas = async () => {
         try {
-            const URL = 'http://https://venta-casas.onrender.com';
+            const URL = 'https://venta-casas.onrender.com';
             
             const response = await fetch(`${URL}/api/coasters`);
             if (!response.ok) {
