@@ -88,10 +88,12 @@ const SubirCasaContent = () => {
           console.log(responseData);
   
           // Actualiza el estado con el mensaje del servidor
+          alert('Datos guardados exitosamente');
           setServerMessage(responseData.message || 'Datos guardados exitosamente');
       } catch (error) {
           console.error('Error:', error);
           // Actualiza el estado con el mensaje de error
+          alert('Error al enviar datos al servidor');
           setServerMessage('Error al enviar datos al servidor');
       }
   };

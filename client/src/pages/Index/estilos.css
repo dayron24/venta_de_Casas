@@ -16,7 +16,9 @@ body {
     text-align: center;
     z-index: 1000;
   }
-  
+.listado{
+    margin-top: 10%;
+}
 .main {
     margin-top: 70px; /* Ajusta este valor según la altura del banner */
 }
@@ -32,7 +34,8 @@ h1 {
 }
 
 .imagen-container {
-    aspect-ratio: 16 / 9; /* Puedes ajustar el aspecto según tus necesidades */
+    /* Puedes ajustar el aspecto según tus necesidades */
+    aspect-ratio: 16/9; 
     overflow: hidden;
 }
 

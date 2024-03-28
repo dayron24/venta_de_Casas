@@ -7,47 +7,22 @@ const IndexPage = () => {
     const [casas, setCasas] = useState([]);
 
     useEffect(() => {
-        loadCasas();
-    }, []);
-
-    const loadCasas = async () => {
-        try {
-            const URL = 'https://servidorgallos.duckdns.org:446';
-            
-            const response = await fetch(`${URL}/api/coasters`);
-            if (!response.ok) {
-                throw new Error('Error al obtener las casas del servidor');
-            }
-            const allCasas = await response.json();
-            setCasas(allCasas);
-        } catch (error) {
-            console.error('Error cargando las casas:', error);
-        }
-    };
-
-    useEffect(() => {
-        const loadImagenes = async () => {
+        const loadCasas = async () => {
             try {
-                const nuevasCasas = await Promise.all(casas.map(async (casa) => {
-                    const response = await fetch(`${URL}/get-image/${casa._id}`);
-                    if (!response.ok) {
-                        throw new Error(`Error al obtener la imagen de la casa ${casa._id}`);
-                    }
-                    const blob = await response.blob();
-                    const imageUrl = URL.createObjectURL(blob);
-                    return { ...casa, imageUrl };
-                }));
-                setCasas(nuevasCasas);
+                const URL = 'https://servidorgallos.duckdns.org:446';
+                const response = await fetch(`${URL}/api/coasters`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener las casas del servidor');
+                }
+                const allCasas = await response.json();
+                setCasas(allCasas);
             } catch (error) {
-                console.error('Error cargando las imágenes:', error);
+                console.error('Error cargando las casas:', error);
             }
         };
-    
-        if (casas.length > 0) {
-            loadImagenes();
-        }
-    }, [casas.length]); // Solo ejecuta el efecto cuando cambie la longitud de 'casas'
 
+        loadCasas();
+    }, []); // Sin dependencias para que se ejecute solo una vez al montar el componente
 
     return (
         <main>
@@ -55,14 +30,14 @@ const IndexPage = () => {
             <div className="banner-container">
                 <h1>Productos y servicios disponibles</h1>
             </div>
-
+            <div className='listado'>
             {casas.map(eachCasa => (
                 <div className="casa-item" key={eachCasa._id || Math.random()}>
                     <div className="margen">
                         <Link key={eachCasa._id} to={`/detalles/${eachCasa._id}`} className="no-underline">
                             <strong>{eachCasa.nombre}</strong>
                             <div className="imagen-container">
-                                <img src={eachCasa.imageUrl} alt={eachCasa.nombre} />
+                                <img src={`https://servidorgallos.duckdns.org:446/get-image/${eachCasa._id}`} alt={eachCasa.nombre} />
                             </div>
                             <p>{eachCasa.descripcion}</p>
                             <h3> Ubicación: {eachCasa.ubicacion}</h3>
@@ -72,6 +47,7 @@ const IndexPage = () => {
                     </div>
                 </div>
             ))}
+            </div>
             {/* <Link to="/">Ir al inicio</Link> */}
         </main>
     );
