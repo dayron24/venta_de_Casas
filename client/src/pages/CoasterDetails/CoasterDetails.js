@@ -13,11 +13,11 @@ const CoasterDetails = () => {
     //     precioFormat = precio.toLocaleString('es-ES');
     //     return precioFormat
     // }
-    
+    const url = 'https://servidorgallos.duckdns.org:446'
 
     useEffect(() => {
         const loadCosterDetails = () => {
-            fetch(`https://venta-casas.onrender.com:5005/api/details/${_id}`)
+            fetch(`${url}/api/details/${_id}`)
                 .then(response => response.json())
                 .then(casa => setCasa(casa))
                 .catch(error => console.error('Error cargando los detalles de la casa:', error));
@@ -25,7 +25,7 @@ const CoasterDetails = () => {
 
         const loadImagenes = async () => {
             try {
-                const response = await fetch(`https://venta-casas.onrender.com:5005/get-image/${_id}`);
+                const response = await fetch(`${url}/get-image/${_id}`);
                 if (!response.ok) {
                     throw new Error(`Error al obtener la imagen de la casa ${_id}`);
                 }

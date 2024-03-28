@@ -74,7 +74,7 @@ const SubirCasaContent = () => {
           console.log('FILLEE:', formData.file);
           
           
-          const response = await fetch('https://venta-casas.onrender.com:5005/guardarDatos', {
+          const response = await fetch('https://servidorgallos.duckdns.org:446/guardarDatos', {
               method: 'POST',
               body: formData,
               file: casa.imagen1,
