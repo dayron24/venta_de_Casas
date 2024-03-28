@@ -6,16 +6,27 @@ body {
 }
 
 .banner-container {
+    display: flex; /* Utilizamos flexbox para alinear elementos horizontalmente */
+    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
-    height: 10px;
+    height: 60px;
     width: 100%;
-    background-color: #f0f0f0;
-    padding: 1px;
-    text-align: center;
+    background-color: #1d1212;
+    
+    justify-content:center ;
     z-index: 1000;
-  }
+    color: #fff;
+    font-size:large;
+}
+
+
+.imagen-derecha {
+    height: 50px;
+
+    width: auto;
+}
 .listado{
     margin-top: 10%;
 }
@@ -26,7 +37,7 @@ body {
 h1 {
     text-align: top;
     color: #fff;
-    background-color: #250d0d;
+    background-color: #1c1010;
     padding: 20px ;
     margin-bottom: 20px;
     margin-top: 0px;

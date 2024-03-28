@@ -28,7 +28,12 @@ const IndexPage = () => {
         <main>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
             <div className="banner-container">
-                <h1>Productos y servicios disponibles</h1>
+                
+                Productos disponibles en Ragnar
+                
+                <img className='imagen-derecha' src='/logoRagnar.png'></img>
+                
+
             </div>
             <div className='listado'>
             {casas.map(eachCasa => (
